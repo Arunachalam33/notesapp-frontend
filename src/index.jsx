@@ -4,13 +4,14 @@ import App from "./components/App";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { isAuthenticated } from "./utils/auth";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/" element={isAuthenticated()?<App />:<Navigate to="/login"/>} />
+      <Route path="/login" element={!isAuthenticated()?<Login />:<Navigate to="/"/>}/>
+      <Route path="/register" element={!isAuthenticated()?<Register />:<Navigate to="/"/>} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")

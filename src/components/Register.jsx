@@ -3,6 +3,8 @@ import axios from "axios";
 
 function Register(){
 
+    const API = "https://notesapp-backend-50tc.onrender.com";
+
  const[form,setForm]=useState({
     username:"",
     password:""
@@ -20,7 +22,7 @@ function Register(){
  async function handleSubmit(event){
    event.preventDefault();
   try{
-    const res=await axios.post("https://notesapp-backend-50tc.onrender.com/api/register",form);
+    const res=await axios.post(`${API}/api/register`,form);
     alert(res.data.message);
    }catch(err){
     alert("Registration Failed");

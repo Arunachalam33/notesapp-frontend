@@ -3,6 +3,8 @@ import axios from "axios";
 
 function Login({onLogin}){
 
+    const API = "https://notesapp-backend-50tc.onrender.com";
+
  const[form,setForm]=useState({
     username:"",
     password:""
@@ -20,7 +22,7 @@ function Login({onLogin}){
  async function handleSubmit(event){
    event.preventDefault();
   try{
-    const res=await axios.post("https://notesapp-backend-50tc.onrender.com/api/login",form);
+    const res=await axios.post(`${API}/api/login`,form);
     const token=res.data.token;
     localStorage.setItem("token",token);
     alert("Login Successfull");

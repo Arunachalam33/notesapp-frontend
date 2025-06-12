@@ -8,11 +8,13 @@ import CreateArea from "./CreateArea";
 function App() {
   const [notes, setNotes] = useState([]);
 
+  const API = "https://notesapp-backend-50tc.onrender.com";
+
   useEffect(()=>{
     const fetchNotes=async()=>{
       const token =localStorage.getItem("token");
       try{
-        const res=await axios.get("https://notesapp-backend-50tc.onrender.com/api/notes",{
+        const res=await axios.get(`${API}/api/notes`,{
           headers:{Authorization:`bearer ${token}`},
         });
         setNotes(res.data);
@@ -28,7 +30,7 @@ function App() {
     const token = localStorage.getItem("token");
 
      try {
-      const res = await axios.post("https://notesapp-backend-50tc.onrender.com/api/notes", newNote, {
+      const res = await axios.post(`${API}/api/notes`, newNote, {
         headers: { Authorization: `Bearer ${token}` },
       });
     setNotes((prevNotes) => [...prevNotes, newNote]);
@@ -40,7 +42,7 @@ function App() {
   async function deleteNote(id) {
      const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://notesapp-backend-50tc.onrender.com/api/notes/${id}`, {
+      await axios.delete(`${API}/api/notes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
     setNotes((prevNotes) => prevNotes.filter((note)=>note.id!=id));
@@ -52,7 +54,7 @@ function App() {
 function handleEditNote(id,updatedNote){
    const token = localStorage.getItem("token");
     
-  axios.put(`https://notesapp-backend-50tc.onrender.com/api/notes/${id}`,updatedNote,{
+  axios.put(`${API}/api/notes/${id}`,updatedNote,{
         headers: { Authorization: `Bearer ${token}` },
       })
 

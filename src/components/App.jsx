@@ -12,7 +12,7 @@ function App() {
     const fetchNotes=async()=>{
       const token =localStorage.getItem("token");
       try{
-        const res=await axios.get("http://localhost:4000/api/notes",{
+        const res=await axios.get("https://notesapp-backend-50tc.onrender.com/api/notes",{
           headers:{Authorization:`bearer ${token}`},
         });
         setNotes(res.data);
@@ -28,7 +28,7 @@ function App() {
     const token = localStorage.getItem("token");
 
      try {
-      const res = await axios.post("http://localhost:4000/api/notes", newNote, {
+      const res = await axios.post("https://notesapp-backend-50tc.onrender.com/api/notes", newNote, {
         headers: { Authorization: `Bearer ${token}` },
       });
     setNotes((prevNotes) => [...prevNotes, newNote]);
@@ -40,7 +40,7 @@ function App() {
   async function deleteNote(id) {
      const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:4000/api/notes/${id}`, {
+      await axios.delete(`https://notesapp-backend-50tc.onrender.com/api/notes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
     setNotes((prevNotes) => prevNotes.filter((note)=>note.id!=id));
@@ -52,7 +52,7 @@ function App() {
 function handleEditNote(id,updatedNote){
    const token = localStorage.getItem("token");
     
-  axios.put(`http://localhost:4000/api/notes/${id}`,updatedNote,{
+  axios.put(`https://notesapp-backend-50tc.onrender.com/api/notes/${id}`,updatedNote,{
         headers: { Authorization: `Bearer ${token}` },
       })
 

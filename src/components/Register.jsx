@@ -20,7 +20,7 @@ function Register(){
  async function handleSubmit(event){
    event.preventDefault();
   try{
-    const res=await axios.post("http://localhost:4000/api/register",form);
+    const res=await axios.post("https://notesapp-backend-50tc.onrender.com/api/register",form);
     alert(res.data.message);
    }catch(err){
     alert("Registration Failed");

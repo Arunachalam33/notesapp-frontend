@@ -12,6 +12,7 @@ function Register(){
     password:""
  })
 
+
   function handleChange(event){
     const {value,name}=event.target;
     
@@ -23,13 +24,19 @@ function Register(){
 }
  async function handleSubmit(event){
    event.preventDefault();
-  try{
+   try{
     const res=await axios.post(`${API}/api/register`,form);
+    if(res.status===200){
     alert(res.data.message);
-   }catch(err){
+    navigate("/login");
+ }else{
     alert("Registration Failed");
    }
+}catch(err){
+    alert("failed");
+    console.error("faileed",err);
 }
+ }
 
 
     return(

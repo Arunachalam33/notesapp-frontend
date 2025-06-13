@@ -1,9 +1,11 @@
 import React,{useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register(){
 
     const API = "https://notesapp-backend-50tc.onrender.com";
+    const navigate = useNavigate();
 
  const[form,setForm]=useState({
     username:"",
@@ -24,6 +26,7 @@ function Register(){
   try{
     const res=await axios.post(`${API}/api/register`,form);
     alert(res.data.message);
+    navigate("/login");
    }catch(err){
     alert("Registration Failed");
    }
@@ -36,6 +39,7 @@ function Register(){
         <input type="text" name="username" placeholder="Username" onChange={handleChange}/>
         <input type="text" name="password" placeholder="Password" onChange={handleChange} />
         <button type="submit">Register</button>
+        <button type="submit">Login</button>
         </form>
     );
 }

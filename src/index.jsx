@@ -17,7 +17,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={isAuthenticated()?<App />:<Navigate to="/register"/>} />
       <Route path="/login" element={isAuthenticated()?<Navigate to="/"/>:<Login />}/>
-      <Route path="/register" element={isregistered?<Navigate to="/login"/>:<Register />} />
+      <Route path="/register" element={isAuthenticated()?<Navigate to="/login"/>:<Register />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")

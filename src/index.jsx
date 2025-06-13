@@ -1,55 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { isAuthenticated } from "./utils/auth";
+import AuthProvider, { AuthContext } from "./utils/AuthContext";
+
+function ProtectedRoute({ children }) {
+  const { isAuthenticated } = useContext(AuthContext);
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+}
+
+function GuestRoute({ children }) {
+  const { isAuthenticated } = useContext(AuthContext);
+  return isAuthenticated ? <Navigate to="/" replace /> : children;
+}
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      {/* 1) Dashboard: only when logged in */}
-      <Route
-        path="/"
-        element={
-          isAuthenticated() 
-            ? <App /> 
-            : <Navigate to="/login" replace />
-        }
-      />
-
-      {/* 2) Login page: only when not logged in */}
-      <Route
-        path="/login"
-        element={
-          isAuthenticated() 
-            ? <Navigate to="/" replace /> 
-            : <Login />
-        }
-      />
-
-      {/* 3) Register page: only when not logged in */}
-      <Route
-        path="/register"
-        element={
-          isAuthenticated() 
-            ? <Navigate to="/" replace />  
-            : <Register />
-        }
-      />
-
-      {/* 4) Fallback: catch any unknown URL */}
-      <Route
-        path="*"
-        element={
-          isAuthenticated() 
-            ? <Navigate to="/" replace /> 
-            : <Navigate to="/login" replace />
-        }
-      />
-    </Routes>
-  </BrowserRouter>,
+  <AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ProtectedRoute><App /></ProtectedRoute>} />
+        <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+        <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  </AuthProvider>,
   document.getElementById("root")
 );
 

@@ -1,50 +1,45 @@
-import React,{useState} from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../utils/AuthContext";
 
-function Login({}){
+function Login() {
+  const API = "https://notesapp-backend-50tc.onrender.com";
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
-    const API = "https://notesapp-backend-50tc.onrender.com";
-    const navigate = useNavigate();
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
 
- const[form,setForm]=useState({
-    username:"",
-    password:""
- })
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-  function handleChange(event){
-    const {value,name}=event.target;
-    
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await axios.post(`${API}/api/login`, form);
+      const token = res.data.token;
+      login(token); // ✅ updates the auth context state
+      alert("Login successful");
+      navigate("/"); // ✅ triggers rerender based on state
+    } catch (err) {
+      alert("Login failed");
+      console.error("Login error", err);
+    }
+  };
 
-    setForm((prev)=>
-    {
-        return {...prev,[name]:value}
-    });
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Login</h2>
+      <input type="text" name="username" placeholder="Username" onChange={handleChange} />
+      <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+      <button type="submit">Login</button>
+    </form>
+  );
 }
- async function handleSubmit(event){
-   event.preventDefault();
-  try{
-    const res=await axios.post(`${API}/api/login`,form);
-    const token=res.data.token;
-    localStorage.setItem("token",token);
-    alert("Login Successfull");
-    navigate("/");  
-    
-   }catch(err){
-    console.error("Login failed",err);
-    localStorage.setItem("token", res.data.token);
-    alert("Login Failed");
-   }
-}
 
-
-    return(
-        <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input type="text" name="username" placeholder="Username" onChange={handleChange}/>
-        <input type="text" name="password" placeholder="Password" onChange={handleChange} />
-        <button type="submit">Login</button>
-        </form>
-    );
-}
 export default Login;

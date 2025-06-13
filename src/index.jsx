@@ -6,16 +6,50 @@ import Register from "./components/Register";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { isAuthenticated } from "./utils/auth";
 
-
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={isAuthenticated()?<App />:<Navigate to="/register"/>} />
-      <Route path="/login" element={isAuthenticated()?<Navigate to="/"/>:<Login />}/>
-      <Route path="/register" element={isAuthenticated()?<Navigate to="/login"/>:<Register />} />
+      {/* 1) Dashboard: only when logged in */}
+      <Route
+        path="/"
+        element={
+          isAuthenticated() 
+            ? <App /> 
+            : <Navigate to="/login" replace />
+        }
+      />
+
+      {/* 2) Login page: only when not logged in */}
+      <Route
+        path="/login"
+        element={
+          isAuthenticated() 
+            ? <Navigate to="/" replace /> 
+            : <Login />
+        }
+      />
+
+      {/* 3) Register page: only when not logged in */}
+      <Route
+        path="/register"
+        element={
+          isAuthenticated() 
+            ? <Navigate to="/" replace />  
+            : <Register />
+        }
+      />
+
+      {/* 4) Fallback: catch any unknown URL */}
+      <Route
+        path="*"
+        element={
+          isAuthenticated() 
+            ? <Navigate to="/" replace /> 
+            : <Navigate to="/login" replace />
+        }
+      />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
 );
-
 

@@ -32,6 +32,7 @@ function Login({}){
     
    }catch(err){
     console.error("Login failed",err);
+    localStorage.setItem("token", res.data.token);
     alert("Login Failed");
    }
 }

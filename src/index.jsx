@@ -10,8 +10,8 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={isAuthenticated()?<App />:<Navigate to="/login"/>} />
-      <Route path="/login" element={!isAuthenticated()?<Login />:<Navigate to="/"/>}/>
-      <Route path="/register" element={!isAuthenticated()?<Register />:<Navigate to="/"/>} />
+      <Route path="/login" element={isAuthenticated()?<Navigate to="/"/>:<Login />}/>
+      <Route path="/register" element={isAuthenticated()?<Navigate to="/"/>:<Register />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")

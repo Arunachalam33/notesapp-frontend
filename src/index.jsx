@@ -6,11 +6,6 @@ import Register from "./components/Register";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { isAuthenticated } from "./utils/auth";
 
-const[isregistered,setregistered]=useState(false);
-
-function handleregister(){
-  setregistered(true);
-}
 
 ReactDOM.render(
   <BrowserRouter>

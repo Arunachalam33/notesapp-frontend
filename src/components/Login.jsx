@@ -1,9 +1,11 @@
 import React,{useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Login({onLogin}){
+function Login({}){
 
     const API = "https://notesapp-backend-50tc.onrender.com";
+    const navigate = useNavigate();
 
  const[form,setForm]=useState({
     username:"",
@@ -26,8 +28,10 @@ function Login({onLogin}){
     const token=res.data.token;
     localStorage.setItem("token",token);
     alert("Login Successfull");
-    onLogin();
+    navigate("/");  
+    
    }catch(err){
+    console.error("Login failed",err);
     alert("Login Failed");
    }
 }

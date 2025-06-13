@@ -33,7 +33,7 @@ function App() {
       const res = await axios.post(`${API}/api/notes`, newNote, {
         headers: { Authorization: `Bearer ${token}` },
       });
-    setNotes((prevNotes) => [...prevNotes, newNote]);
+    setNotes((prevNotes) => [...prevNotes, res.data]);
   }catch(err){
      console.error("Error creating note", err);
   }
@@ -45,7 +45,7 @@ function App() {
       await axios.delete(`${API}/api/notes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-    setNotes((prevNotes) => prevNotes.filter((note)=>note.id!=id));
+    setNotes((prevNotes) => prevNotes.filter((note)=>note.id!==id));
   }catch(err){
     console.error("Error deleting Note",err)
   }
@@ -54,7 +54,7 @@ function App() {
 function handleEditNote(id,updatedNote){
    const token = localStorage.getItem("token");
     
-  axios.put(`${API}/api/notes/${id}`,updatedNote,{
+  return axios.put(`${API}/api/notes/${id}`,updatedNote,{
         headers: { Authorization: `Bearer ${token}` },
       })
 

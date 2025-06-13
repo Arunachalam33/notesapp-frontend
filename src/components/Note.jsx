@@ -21,8 +21,8 @@ function Note(props) {
       }));
   }
 
-  function handleSave(){
-     props.onEdit(props.id,updatedNote);
+  async function  handleSave(){
+     await props.onEdit(props.id, updatedNote);
   
     setEditing(false);
     

@@ -25,7 +25,7 @@ function Login() {
       const token = res.data.token;
       login(token); // ✅ updates the auth context state
       alert("Login successful");
-      navigate("/"); // ✅ triggers rerender based on state
+      navigate("/",{state:{refresh:true}}); // ✅ triggers rerender based on state
     } catch (err) {
       alert("Login failed");
       console.error("Login error", err);

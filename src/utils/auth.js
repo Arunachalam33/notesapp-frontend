@@ -1,4 +1,5 @@
 export function isAuthenticated() {
-  // returns true if there's a non-empty token
-  return Boolean(localStorage.getItem("token"));
+  // use the exact key you wrote to localStorage
+  const token = localStorage.getItem("token");
+  return Boolean(token && token.length > 10);
 }

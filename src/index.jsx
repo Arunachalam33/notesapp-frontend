@@ -1,16 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import App from "./components/App";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { isAuthenticated } from "./utils/auth";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      {/* 1) Dashboard */}
+      {/* 1) Dashboard: only when logged in */}
       <Route
         path="/"
         element={
@@ -20,7 +19,7 @@ ReactDOM.render(
         }
       />
 
-      {/* 2) Login */}
+      {/* 2) Login page: only when not logged in */}
       <Route
         path="/login"
         element={
@@ -30,20 +29,24 @@ ReactDOM.render(
         }
       />
 
-      {/* 3) Register */}
+      {/* 3) Register page: only when not logged in */}
       <Route
         path="/register"
         element={
-          isAuthenticated()
-            ? <Navigate to="/" replace />
+          isAuthenticated() 
+            ? <Navigate to="/" replace />  
             : <Register />
         }
       />
 
-      {/* 4) Fallback */}
-      <Route 
+      {/* 4) Fallback: catch any unknown URL */}
+      <Route
         path="*"
-        element={<Navigate to={isAuthenticated() ? "/" : "/login"} replace />}
+        element={
+          isAuthenticated() 
+            ? <Navigate to="/" replace /> 
+            : <Navigate to="/login" replace />
+        }
       />
     </Routes>
   </BrowserRouter>,

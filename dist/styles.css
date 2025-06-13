@@ -177,3 +177,69 @@ form.create-note button {
 .note button {
   margin-top: 4px;
 }
+
+
+/* Responsive layout for notes */
+@media (max-width: 600px) {
+  .note {
+    width: 90%;
+    margin: 12px auto;
+    float: none;
+  }
+
+  form.create-note {
+    width: 95%;
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .auth-container {
+    width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  header {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  header button {
+    width: 100%;
+  }
+
+  .note-input,
+  .note-textarea {
+    font-size: 1em;
+    padding: 6px;
+  }
+
+  .auth-container input {
+    font-size: 1em;
+    padding: 8px;
+  }
+
+  .auth-container button {
+    font-size: 1em;
+    padding: 8px;
+  }
+}
+
+/* Extra styling for editing mode */
+.note input[type="text"],
+.note textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 1em;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

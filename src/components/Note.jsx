@@ -38,8 +38,8 @@ function Note(props) {
     <div className="note">
       {isEditing?(
         <>
-      <input type="text" name="title" value={updatedNote.title} onChange={handleEdit}/>
-      <textarea name="content" value={updatedNote.content} onChange={handleEdit}></textarea>
+      <input className="note-input" type="text" name="title" value={updatedNote.title} onChange={handleEdit}/>
+      <textarea className="note-textarea" name="content" value={updatedNote.content} onChange={handleEdit}></textarea>
       </>
       ):
       <>
